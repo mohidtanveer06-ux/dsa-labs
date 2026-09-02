@@ -4,7 +4,7 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "authorship_tag": "ABX9TyMxYEbkxz2o6wnOAoRbXtcv",
+      "authorship_tag": "ABX9TyPdmLHE7GeTApMnthpmgcVr",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -46,7 +46,7 @@
         }
       ],
       "source": [
-        "nprint(\"hello world\")"
+        "print(\"hello world\")"
       ]
     },
     {
