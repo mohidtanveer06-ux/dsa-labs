@@ -1,0 +1,324 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOGNaMcxByWKNaScw5MJGvD",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/mohidtanveer06-ux/dsa-labs/blob/main/lab%202\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "r8G78UxmE99S",
+        "outputId": "67d5a262-d2da-48ec-cff9-d2b1c21cb2b9"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "After Appending (10, 20, 30):\n",
+            "10 -> 20 -> 30 -> None\n",
+            "\n",
+            "After Prepending (5 at beginning):\n",
+            "5 -> 10 -> 20 -> 30 -> None\n",
+            "\n",
+            "After Inserting 15 at index 2:\n",
+            "5 -> 10 -> 15 -> 20 -> 30 -> None\n"
+          ]
+        }
+      ],
+      "source": [
+        "class Node:\n",
+        "    def __init__(self, data):\n",
+        "        self.data = data\n",
+        "        self.next = None\n",
+        "\n",
+        "class LinkedList:\n",
+        "    def __init__(self):\n",
+        "        self.head = None\n",
+        "\n",
+        "    def insert_at_beginning(self, data):\n",
+        "        new_node = Node(data)\n",
+        "        new_node.next = self.head\n",
+        "        self.head = new_node\n",
+        "\n",
+        "    def insert_at_end(self, data):\n",
+        "        new_node = Node(data)\n",
+        "        if self.head is None:\n",
+        "            self.head = new_node\n",
+        "            return\n",
+        "\n",
+        "        current = self.head\n",
+        "        while current.next is not None:\n",
+        "            current = current.next\n",
+        "        current.next = new_node\n",
+        "\n",
+        "    def insert_at_index(self, index, data):\n",
+        "        if index < 0:\n",
+        "            print(\"Index cannot be negative\")\n",
+        "            return\n",
+        "\n",
+        "        if index == 0:\n",
+        "            self.insert_at_beginning(data)\n",
+        "            return\n",
+        "\n",
+        "        new_node = Node(data)\n",
+        "        current = self.head\n",
+        "        position = 0\n",
+        "\n",
+        "        while current is not None and position < index - 1:\n",
+        "            current = current.next\n",
+        "            position += 1\n",
+        "\n",
+        "        if current is None:\n",
+        "            print(f\"Index {index} out of bounds\")\n",
+        "            return\n",
+        "\n",
+        "        new_node.next = current.next\n",
+        "        current.next = new_node\n",
+        "\n",
+        "    def display(self):\n",
+        "        current = self.head\n",
+        "        elements = []\n",
+        "        while current is not None:\n",
+        "            elements.append(str(current.data))\n",
+        "            current = current.next\n",
+        "        print(\" -> \".join(elements) + \" -> None\")\n",
+        "\n",
+        "ll = LinkedList()\n",
+        "\n",
+        "ll.insert_at_end(10)\n",
+        "ll.insert_at_end(20)\n",
+        "ll.insert_at_end(30)\n",
+        "print(\"After Appending (10, 20, 30):\")\n",
+        "ll.display()\n",
+        "\n",
+        "ll.insert_at_beginning(5)\n",
+        "print(\"\\nAfter Prepending (5 at beginning):\")\n",
+        "ll.display()\n",
+        "\n",
+        "ll.insert_at_index(2, 15)\n",
+        "print(\"\\nAfter Inserting 15 at index 2:\")\n",
+        "ll.display()"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "class Node:\n",
+        "    def __init__(self, data):\n",
+        "        self.data = data\n",
+        "        self.next = None\n",
+        "\n",
+        "class LinkedList:\n",
+        "    def __init__(self):\n",
+        "        self.head = None\n",
+        "\n",
+        "    def insert_at_end(self, data):\n",
+        "        new_node = Node(data)\n",
+        "        if self.head is None:\n",
+        "            self.head = new_node\n",
+        "            return\n",
+        "        current = self.head\n",
+        "        while current.next is not None:\n",
+        "            current = current.next\n",
+        "        current.next = new_node\n",
+        "\n",
+        "    def delete_at_beginning(self):\n",
+        "        if self.head is None:\n",
+        "            print(\"List is empty, cannot delete\")\n",
+        "            return\n",
+        "        self.head = self.head.next\n",
+        "\n",
+        "    def delete_at_end(self):\n",
+        "        if self.head is None:\n",
+        "            print(\"List is empty, cannot delete\")\n",
+        "            return\n",
+        "        if self.head.next is None:\n",
+        "            self.head = None\n",
+        "            return\n",
+        "        current = self.head\n",
+        "        while current.next.next is not None:\n",
+        "            current = current.next\n",
+        "        current.next = None\n",
+        "\n",
+        "    def delete_at_index(self, index):\n",
+        "        if index < 0:\n",
+        "            print(\"Index cannot be negative\")\n",
+        "            return\n",
+        "        if self.head is None:\n",
+        "            print(\"List is empty, cannot delete\")\n",
+        "            return\n",
+        "        if index == 0:\n",
+        "            self.delete_at_beginning()\n",
+        "            return\n",
+        "        current = self.head\n",
+        "        position = 0\n",
+        "        while current is not None and position < index - 1:\n",
+        "            current = current.next\n",
+        "            position += 1\n",
+        "        if current is None or current.next is None:\n",
+        "            print(f\"Index {index} out of bounds\")\n",
+        "            return\n",
+        "        current.next = current.next.next\n",
+        "\n",
+        "    def display(self):\n",
+        "        current = self.head\n",
+        "        elements = []\n",
+        "        while current is not None:\n",
+        "            elements.append(str(current.data))\n",
+        "            current = current.next\n",
+        "        print(\" -> \".join(elements) + \" -> None\")\n",
+        "\n",
+        "ll = LinkedList()\n",
+        "ll.insert_at_end(10)\n",
+        "ll.insert_at_end(20)\n",
+        "ll.insert_at_end(30)\n",
+        "ll.insert_at_end(40)\n",
+        "ll.insert_at_end(50)\n",
+        "print(\"Original List:\")\n",
+        "ll.display()\n",
+        "\n",
+        "ll.delete_at_beginning()\n",
+        "print(\"\\nAfter Deleting from Beginning:\")\n",
+        "ll.display()\n",
+        "\n",
+        "ll.delete_at_end()\n",
+        "print(\"\\nAfter Deleting from End:\")\n",
+        "ll.display()\n",
+        "\n",
+        "ll.delete_at_index(1)\n",
+        "print(\"\\nAfter Deleting from Index 1:\")\n",
+        "ll.display()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "_PS4XpR7GGnp",
+        "outputId": "8c9d5971-571f-424c-8938-de65add8d1ce"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original List:\n",
+            "10 -> 20 -> 30 -> 40 -> 50 -> None\n",
+            "\n",
+            "After Deleting from Beginning:\n",
+            "20 -> 30 -> 40 -> 50 -> None\n",
+            "\n",
+            "After Deleting from End:\n",
+            "20 -> 30 -> 40 -> None\n",
+            "\n",
+            "After Deleting from Index 1:\n",
+            "20 -> 40 -> None\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "824faacf",
+        "outputId": "5df3616b-60c9-464e-c84d-91c56557c4bb"
+      },
+      "source": [
+        "class DoublyNode:\n",
+        "    def __init__(self, data):\n",
+        "        self.prev = None\n",
+        "        self.data = data\n",
+        "        self.next = None\n",
+        "\n",
+        "class DoublyLinkedList:\n",
+        "    def __init__(self):\n",
+        "        self.head = None\n",
+        "        self.tail = None\n",
+        "\n",
+        "    def insert_at_end(self, data):\n",
+        "        new_node = DoublyNode(data)\n",
+        "        if self.head is None:\n",
+        "            self.head = new_node\n",
+        "            self.tail = new_node\n",
+        "            return\n",
+        "        self.tail.next = new_node\n",
+        "        new_node.prev = self.tail\n",
+        "        self.tail = new_node\n",
+        "\n",
+        "    def display_forward(self):\n",
+        "        current = self.head\n",
+        "        elements = []\n",
+        "        while current is not None:\n",
+        "            elements.append(str(current.data))\n",
+        "            current = current.next\n",
+        "        print(\"Forward: \" + \" <-> \".join(elements) + \" <-> None\")\n",
+        "\n",
+        "    def display_backward(self):\n",
+        "        current = self.tail\n",
+        "        elements = []\n",
+        "        while current is not None:\n",
+        "            elements.append(str(current.data))\n",
+        "            current = current.prev\n",
+        "        print(\"Backward: \" + \" <-> \".join(elements) + \" <-> None\")\n",
+        "\n",
+        "dll = DoublyLinkedList()\n",
+        "dll.insert_at_end(10)\n",
+        "dll.insert_at_end(20)\n",
+        "dll.insert_at_end(30)\n",
+        "\n",
+        "dll.display_forward()\n",
+        "dll.display_backward()"
+      ],
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Forward: 10 <-> 20 <-> 30 <-> None\n",
+            "Backward: 30 <-> 20 <-> 10 <-> None\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "68drJlrtGpDs"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
