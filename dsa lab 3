@@ -1,0 +1,197 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOQxGed2eO6IuXPeFkS6Pkq",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/mohidtanveer06-ux/dsa-labs/blob/main/dsa%20lab%203\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "53f632a1",
+        "outputId": "8fcb327f-d04d-4848-8f77-1977ae344d6e"
+      },
+      "source": [
+        "class Stack:\n",
+        "    def __init__(self):\n",
+        "        self.items = []\n",
+        "\n",
+        "    def is_empty(self):\n",
+        "        return len(self.items) == 0\n",
+        "\n",
+        "    def push(self, item):\n",
+        "        self.items.append(item)\n",
+        "\n",
+        "    def pop(self):\n",
+        "        if not self.is_empty():\n",
+        "            return self.items.pop()\n",
+        "        return None\n",
+        "\n",
+        "def reverse_string(text: str) -> str:\n",
+        "    stack = Stack()\n",
+        "    for char in text:\n",
+        "        stack.push(char)\n",
+        "    reversed_text = \"\"\n",
+        "    while not stack.is_empty():\n",
+        "        reversed_text += stack.pop()\n",
+        "    return reversed_text\n",
+        "\n",
+        "original_text = \"university\"\n",
+        "result = reverse_string(original_text)\n",
+        "print(f\"Original: {original_text}\")\n",
+        "print(f\"Reversed: {result}\")"
+      ],
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Original: university\n",
+            "Reversed: ytisrevinu\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "5d10d9cd",
+        "outputId": "4b9c536d-83e9-4c26-fc08-c96b40adfec4"
+      },
+      "source": [
+        "class Stack:\n",
+        "    def __init__(self):\n",
+        "        self.items = []\n",
+        "\n",
+        "    def is_empty(self):\n",
+        "        return len(self.items) == 0\n",
+        "\n",
+        "    def push(self, item):\n",
+        "        self.items.append(item)\n",
+        "\n",
+        "    def pop(self):\n",
+        "        if not self.is_empty():\n",
+        "            return self.items.pop()\n",
+        "        return None\n",
+        "\n",
+        "def is_balanced(expression: str) -> bool:\n",
+        "    stack = Stack()\n",
+        "    mapping = {\")\": \"(\", \"}\": \"{\", \"]\": \"[\"}\n",
+        "    for char in expression:\n",
+        "        if char in \"({[\":\n",
+        "            stack.push(char)\n",
+        "        elif char in \")}‑]\":\n",
+        "            if stack.is_empty():\n",
+        "                return False\n",
+        "            top = stack.pop()\n",
+        "            if top != mapping[char]:\n",
+        "                return False\n",
+        "    return stack.is_empty()\n",
+        "\n",
+        "print(is_balanced(\"{[()]}\"))\n",
+        "print(is_balanced(\"{[(])}\"))"
+      ],
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "True\n",
+            "False\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "class MinStack:\n",
+        "    def __init__(self):\n",
+        "        self.items = []\n",
+        "        self.min_items = []\n",
+        "\n",
+        "    def is_empty(self):\n",
+        "        return len(self.items) == 0\n",
+        "\n",
+        "    def push(self, item):\n",
+        "        self.items.append(item)\n",
+        "        if len(self.min_items) == 0 or item <= self.min_items[-1]:\n",
+        "            self.min_items.append(item)\n",
+        "\n",
+        "    def pop(self):\n",
+        "        if not self.is_empty():\n",
+        "            popped = self.items.pop()\n",
+        "            if popped == self.min_items[-1]:\n",
+        "                self.min_items.pop()\n",
+        "            return popped\n",
+        "        return None\n",
+        "\n",
+        "    def peek(self):\n",
+        "        if not self.is_empty():\n",
+        "            return self.items[-1]\n",
+        "        return None\n",
+        "\n",
+        "    def get_min(self):\n",
+        "        if len(self.min_items) > 0:\n",
+        "            return self.min_items[-1]\n",
+        "        return None\n",
+        "\n",
+        "stack = MinStack()\n",
+        "stack.push(5)\n",
+        "stack.push(3)\n",
+        "stack.push(7)\n",
+        "print(stack.get_min())\n",
+        "stack.pop()\n",
+        "stack.pop()\n",
+        "print(stack.get_min())"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "jWWE5SFahRmI",
+        "outputId": "65db3eaa-44bb-4b08-8334-b33b2f642fdb"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "3\n",
+            "5\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
